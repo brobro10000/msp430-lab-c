@@ -1,0 +1,31 @@
+#include <msp430FR6989.h>
+#define redLED BIT0
+#define greenLED BIT7
+/**
+ * main.c
+ */
+int main(void)
+{
+    volatile unsigned int i;
+    volatile unsigned int j;
+	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
+	PM5CTL0 &= ~LOCKLPM5;   // Disable GPIO power-on default high-impedance mode
+
+	P1DIR|= redLED;
+	P1OUT &= redLED;
+
+    P9DIR|= greenLED;
+    P9OUT &= ~greenLED;
+
+	for(;;){
+	    //Delay Loop
+	    for(i=0; i<60000; i++){
+	        for(j=0; j<60000; j++){}
+	       // P1OUT ^= redLED; //uncomment for flashing red
+	    }
+	   // P1OUT ^= redLED; //uncomment for flashing red light
+//	    for(i=0; i<20000; i++){  //Uncomment for flashing lights
+//	    P9OUT ^= greenLED;
+//	    }
+	}
+}
